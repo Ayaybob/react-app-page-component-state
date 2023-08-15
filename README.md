@@ -1,11 +1,18 @@
 react-app-page-component-state
 ===========
 
-推荐在Typescript环境下使用
+#### 通过npm或者yarn安装 / Install with npm or yarn
+```bash
+# npm
+npm install react-app-page-component-state
 
-This library is recommended for use in a TypeScript environment.
+# yarn
+yarn add react-app-page-component-state
+```
 
 ## 用法 / Usage
+
+推荐在Typescript环境下使用 / This library is recommended for use in a TypeScript environment.
 ### useAppState
 index.tsx
 ```js
