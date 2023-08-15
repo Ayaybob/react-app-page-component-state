@@ -1,0 +1,50 @@
+{
+  "name": "react-app-page-component-state",
+  "version": "0.0.8",
+  "author": "Ayaybob",
+  "description": "通过useAppState、usePageState、useComponentState在整个应用、页面、组件中类似useState的用法，在跨父子组件使用相同的状态 / Let's use app state by function useAppState like useState in whole application, also provides usePageState and useComponentState function",
+  "private": false,
+  "main": "dist/cjs/index.js",
+  "types": "dist/index.d.ts",
+  "module": "dist/esm/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rimraf ./dist",
+    "build": "rollup -c --bundleConfigAsCjs",
+    "buildAndClean": "npm run clean && rollup -c --bundleConfigAsCjs",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "peerDependencies": {
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.3",
+    "@rollup/plugin-node-resolve": "^15.1.0",
+    "@rollup/plugin-terser": "^0.4.3",
+    "@rollup/plugin-typescript": "^11.1.2",
+    "@types/react": "^18.2.19",
+    "rimraf": "^5.0.1",
+    "rollup": "^3.28.0",
+    "rollup-plugin-dts": "^5.3.1",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "typescript": "^5.1.6"
+  },
+  "files": [
+    "dist/*"
+  ],
+  "keywords": [
+    "react",
+    "react state",
+    "react-state",
+    "hook",
+    "useState",
+    "hook useState",
+    "app-state",
+    "page-state",
+    "component-state",
+    "app state",
+    "page state",
+    "component state"
+  ],
+  "license": "MIT"
+}
