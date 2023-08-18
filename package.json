@@ -1,6 +1,6 @@
 {
   "name": "react-app-page-component-state",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "author": "Ayaybob",
   "description": "通过useAppState、usePageState、useComponentState在整个应用、页面、组件中类似useState的用法，在跨父子组件使用相同的状态 / Let's use app state by function useAppState like useState in whole application, also provides usePageState and useComponentState function",
   "private": false,
@@ -8,12 +8,9 @@
   "types": "dist/index.d.ts",
   "module": "dist/esm/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rimraf ./dist",
     "build": "rollup -c --bundleConfigAsCjs",
-    "buildAndClean": "npm run clean && rollup -c --bundleConfigAsCjs",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "buildAndClean": "npm run clean && rollup -c --bundleConfigAsCjs"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^25.0.3",

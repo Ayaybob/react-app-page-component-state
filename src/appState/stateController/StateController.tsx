@@ -1,16 +1,17 @@
 import React, { ComponentType, useState, useEffect, useContext, SetStateAction, Context } from "react";
 import { GetInitStateProps, IStateController, SetState, StateContextType, StateProviderProps } from "./StateController.type";
+import { AppStateControllerProps } from "../appState";
 
 
-export default class StateController<T, K extends keyof T = keyof T> implements IStateController<T, K> {
+export default class StateController<T> implements IStateController<T> {
     pageState: T
-    setStateArrMap: { [key in K]: SetState<{}>[] | undefined } = {} as any
-    stateChangeListenerArrMap: { [key in K]: ((value: T[K]) => void)[] } = {} as any
+    setStateArrMap: { [K in keyof T]: SetState<{}>[] | undefined } = {} as any
+    stateChangeListenerArrMap: { [K in keyof T]: ((value: T[K]) => void)[] } = {} as any
     constructor(getInitPageState?: () => T) {
         this.pageState = (getInitPageState && getInitPageState()) || ({} as T)
     }
 
-    useCommonState(key: K): [T[K], SetState<T[K]>] {
+    useState<K extends keyof T>(key: K): [T[K], SetState<T[K]>] {
         // eslint-disable-next-line react-hooks/rules-of-hooks
         let [, setStateFromUseState] = useState<{}>()
         // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -28,11 +29,11 @@ export default class StateController<T, K extends keyof T = keyof T> implements 
         return [this.pageState[key], newSetState]
     }
 
-    getState(key: K) {
+    getState<K extends keyof T>(key: K) {
         return this.pageState[key]
     }
 
-    setState(key: K, setStateAction: SetStateAction<T[K]>) {
+    setState<K extends keyof T>(key: K, setStateAction: SetStateAction<T[K]>) {
         if (typeof setStateAction == 'function') { // 如果传入的是方法, 则用中间方法承接prevState, 完成setState调用, 并进行自持字段的赋值
             let setStateCallback = setStateAction as ((prevState: T[K]) => T[K])
             let prevState = this.pageState[key]
@@ -44,7 +45,7 @@ export default class StateController<T, K extends keyof T = keyof T> implements 
         }
     }
 
-    addStateChangeListener(key: K, onChange: (newValue: T[K]) => void) {
+    addStateChangeListener<K extends keyof T>(key: K, onChange: (newValue: T[K]) => void) {
         let arr = this.stateChangeListenerArrMap[key]
         if (arr === undefined) {
             arr = []
@@ -53,7 +54,7 @@ export default class StateController<T, K extends keyof T = keyof T> implements 
         arr.push(onChange)
     }
 
-    removeStateChangeListener(key: K, onChange: (value: T[K]) => void) {
+    removeStateChangeListener<K extends keyof T>(key: K, onChange: (value: T[K]) => void) {
         let arr = this.stateChangeListenerArrMap[key]
         if (arr) {
             for (let i = 0; i < arr.length;) {
@@ -67,7 +68,7 @@ export default class StateController<T, K extends keyof T = keyof T> implements 
         }
     }
 
-    _addSetStateToArr(key: K, setState: SetState<{}>) {
+    private _addSetStateToArr<K extends keyof T>(key: K, setState: SetState<{}>) {
         let arr = this.setStateArrMap[key]
         if (arr === undefined) {
             arr = []
@@ -76,7 +77,7 @@ export default class StateController<T, K extends keyof T = keyof T> implements 
         arr.push(setState)
     }
 
-    _removeSetStateFromArr(key: K, setState: SetState<{}>) {
+    private _removeSetStateFromArr<K extends keyof T>(key: K, setState: SetState<{}>) {
         let arr = this.setStateArrMap[key]
         if (arr) {
             for (let i = 0; i < arr.length;) {
@@ -90,7 +91,7 @@ export default class StateController<T, K extends keyof T = keyof T> implements 
         }
     }
 
-    _onStateChange(key: K, newState: T[K]) {
+    private _onStateChange<K extends keyof T>(key: K, newState: T[K]) {
         this.pageState[key] = newState
         // 触发所有调用useState的组件内的界面更新
         let setStateArr = this.setStateArrMap[key]
@@ -109,8 +110,8 @@ export function useStateController<T>(StateContext: Context<StateContextType<T>>
     return stateController
 }
 
-export function useStateByStateController<T>(key: keyof T, StateContext: Context<StateContextType<T>>): [T[keyof T], SetState<T[keyof T]>] {
-    return useStateController<T>(StateContext).useCommonState(key)
+export function useStateByStateController<T, K extends keyof T>(key: K, StateContext: Context<StateContextType<T>>): [T[K], SetState<T[K]>] {
+    return useStateController<T>(StateContext).useState(key)
 }
 
 
@@ -147,4 +148,23 @@ export function StateProvider<T>(props: StateProviderProps<T>) {
             {props.children}
         </props.StateContext.Provider>
     )
+}
+
+/**
+ * 给组件加上PageStateProvider的高阶组件
+ */
+export function withStateController<P extends object, K extends keyof P>(
+    WrappedComponent: ComponentType<P>,
+    StateContext: Context<StateContextType<any>>,
+    propFieldName: K
+): ComponentType<Omit<P, K>> {
+    function fun(props: Omit<P, K>) {
+        let { stateController } = useContext<StateContextType<any>>(StateContext)
+        let kProps = { [propFieldName]: stateController } as Pick<P, K>
+        let newProps = { ...kProps, ...props } as P
+        return (
+            <WrappedComponent {...newProps} />
+        )
+    }
+    return fun
 }

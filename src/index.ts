@@ -1,6 +1,8 @@
-// app state
-export { useAppState, getUseAppState, withAppStateProvider, AppStateProvider, useAppStateController } from "./appState/appState"
-// page state
-export { usePageState, getUsePageState, withPageStateProvider, PageStateProvider, usePageStateController } from "./appState/pageState"
-// component state
-export { useComponentState, getUseComponentState, withComponentStateProvider, ComponentStateProvider, useComponentStateController } from "./appState/componentState"
+export * from "./appState"
+
+// import { useAppState, usePageState } from "./appState"
+// class AppState {
+//     userId: number | null = null
+//     nickname = ""
+// }
+// useAppState<AppState, "userId">("userId")

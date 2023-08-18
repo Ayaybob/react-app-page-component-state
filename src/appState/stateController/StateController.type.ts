@@ -19,10 +19,10 @@ export type StateContextType<T> = {
     stateController: IStateController<T>
 }
 
-export interface IStateController<T, K extends keyof T = keyof T> {
-    useCommonState(key: K): [T[K], SetState<T[K]>]
-    getState(key: K): T[K]
-    setState(key: K, setStateAction: SetStateAction<T[K]>): void
-    addStateChangeListener(key: K, onChange: (newValue: T[K]) => void): void
-    removeStateChangeListener(key: K, onChange: (value: T[K]) => void): void
+export interface IStateController<T> {
+    useState<K extends keyof T>(key: K): [T[K], SetState<T[K]>]
+    getState<K extends keyof T>(key: K): T[K]
+    setState<K extends keyof T>(key: K, setStateAction: SetStateAction<T[K]>): void
+    addStateChangeListener<K extends keyof T>(key: K, onChange: (newValue: T[K]) => void): void
+    removeStateChangeListener<K extends keyof T>(key: K, onChange: (value: T[K]) => void): void
 }
