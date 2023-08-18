@@ -1,6 +1,6 @@
 {
   "name": "react-app-page-component-state",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "author": "Ayaybob",
   "description": "通过useAppState、usePageState、useComponentState在整个应用、页面、组件中类似useState的用法，在跨父子组件使用相同的状态 / Let's use app state by function useAppState like useState in whole application, also provides usePageState and useComponentState function",
   "private": false,
