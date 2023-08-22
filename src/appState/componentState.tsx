@@ -24,20 +24,20 @@ export function useComponentStateController<T>(): IStateController<T> {
 }
 
 export type ComponentStateControllerProps<T> = {
-    componentState: IStateController<T>
+    componentStateCtrlr: IStateController<T>
 }
 
-// export function withComponentStateControllerByCustomFieldName<P extends object, K extends keyof P>(
-//     WrappedComponent: ComponentType<P>,
-//     propFieldName: K,
-// ): ComponentType<Omit<P, K>> {
-//     return withStateController(WrappedComponent, ComponentStateContext, propFieldName)
-// }
+export function withComponentStateControllerByCustomFieldName<P extends object, K extends keyof P>(
+    WrappedComponent: ComponentType<P>,
+    propFieldName: K,
+): ComponentType<Omit<P, K>> {
+    return withStateController(WrappedComponent, ComponentStateContext, propFieldName)
+}
 
-// export function withComponentStateController<P extends ComponentStateControllerProps<any>>(
-//     WrappedComponent: ComponentType<P>,
-// ): ComponentType<Omit<P, "componentState">> {
-//     return withComponentStateControllerByCustomFieldName(WrappedComponent, "componentState")
-// }
+export function withComponentStateController<P extends ComponentStateControllerProps<any>>(
+    WrappedComponent: ComponentType<P>,
+): ComponentType<Omit<P, "componentStateCtrlr">> {
+    return withComponentStateControllerByCustomFieldName(WrappedComponent, "componentStateCtrlr")
+}
 
 const ComponentStateContext = createContext<StateContextType<anyClassByUserSpecified>>({} as StateContextType<anyClassByUserSpecified>)

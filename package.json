@@ -1,6 +1,6 @@
 {
   "name": "react-app-page-component-state",
-  "version": "0.0.10",
+  "version": "0.1.0",
   "author": "Ayaybob",
   "description": "通过useAppState、usePageState、useComponentState在整个应用、页面、组件中类似useState的用法，在跨父子组件使用相同的状态 / Let's use app state by function useAppState like useState in whole application, also provides usePageState and useComponentState function",
   "private": false,
@@ -22,7 +22,8 @@
     "rollup": "^3.28.0",
     "rollup-plugin-dts": "^5.3.1",
     "rollup-plugin-peer-deps-external": "^2.2.4",
-    "typescript": "^5.1.6"
+    "typescript": "^5.1.6",
+    "tslib": "^2.6.2"
   },
   "files": [
     "dist/*"

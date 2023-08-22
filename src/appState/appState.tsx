@@ -25,20 +25,20 @@ export function useAppStateController<T>(): IStateController<T> {
 }
 
 export type AppStateControllerProps<T> = {
-    appState: IStateController<T>
+    appStateCtrlr: IStateController<T>
 }
 
-// export function withAppStateControllerByCustomFieldName<P extends object, K extends keyof P>(
-//     WrappedComponent: ComponentType<P>,
-//     propFieldName: K,
-// ): ComponentType<Omit<P, K>> {
-//     return withStateController(WrappedComponent, AppStateContext, propFieldName)
-// }
+export function withAppStateControllerByCustomFieldName<P extends object, K extends keyof P>(
+    WrappedComponent: ComponentType<P>,
+    propFieldName: K,
+): ComponentType<Omit<P, K>> {
+    return withStateController(WrappedComponent, AppStateContext, propFieldName)
+}
 
-// export function withAppStateController<P extends AppStateControllerProps<any>>(
-//     WrappedComponent: ComponentType<P>,
-// ): ComponentType<Omit<P, "appState">> {
-//     return withAppStateControllerByCustomFieldName<P, "appState">(WrappedComponent, "appState")
-// }
+export function withAppStateController<P extends AppStateControllerProps<any>>(
+    WrappedComponent: ComponentType<P>,
+): ComponentType<Omit<P, "appStateCtrlr">> {
+    return withAppStateControllerByCustomFieldName(WrappedComponent, "appStateCtrlr")
+}
 
 const AppStateContext = createContext<StateContextType<anyClassByUserSpecified>>({} as StateContextType<anyClassByUserSpecified>)

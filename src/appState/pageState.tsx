@@ -24,20 +24,20 @@ export function usePageStateController<T>(): IStateController<T> {
 }
 
 export type PageStateControllerProps<T> = {
-    pageState: IStateController<T>
+    pageStateCtrlr: IStateController<T>
 }
 
-// export function withPageStateControllerByCustomFieldName<P extends object, K extends keyof P>(
-//     WrappedComponent: ComponentType<P>,
-//     propFieldName: K,
-// ): ComponentType<Omit<P, K>> {
-//     return withStateController(WrappedComponent, PageStateContext, propFieldName)
-// }
+export function withPageStateControllerByCustomFieldName<P extends object, K extends keyof P>(
+    WrappedComponent: ComponentType<P>,
+    propFieldName: K,
+): ComponentType<Omit<P, K>> {
+    return withStateController(WrappedComponent, PageStateContext, propFieldName)
+}
 
-// export function withPageStateController<P extends PageStateControllerProps<T>>(
-//     WrappedComponent: ComponentType<P>,
-// ): ComponentType<Omit<P, "pageState">> {
-//     return withPageStateControllerByCustomFieldName(WrappedComponent, "pageState")
-// }
+export function withPageStateController<P extends PageStateControllerProps<any>>(
+    WrappedComponent: ComponentType<P>,
+): ComponentType<Omit<P, "pageStateCtrlr">> {
+    return withPageStateControllerByCustomFieldName(WrappedComponent, "pageStateCtrlr")
+}
 
 const PageStateContext = createContext<StateContextType<anyClassByUserSpecified>>({} as StateContextType<anyClassByUserSpecified>)

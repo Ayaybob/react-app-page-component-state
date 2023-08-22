@@ -29,8 +29,10 @@ declare function withAppStateProvider<T, P extends {} & unknown>(WrappedAppCompo
 declare function AppStateProvider<T>(props: GetInitStateProps<T>): react.JSX.Element;
 declare function useAppStateController<T>(): IStateController<T>;
 type AppStateControllerProps<T> = {
-    appState: IStateController<T>;
+    appStateCtrlr: IStateController<T>;
 };
+declare function withAppStateControllerByCustomFieldName<P extends object, K extends keyof P>(WrappedComponent: ComponentType<P>, propFieldName: K): ComponentType<Omit<P, K>>;
+declare function withAppStateController<P extends AppStateControllerProps<any>>(WrappedComponent: ComponentType<P>): ComponentType<Omit<P, "appStateCtrlr">>;
 
 declare function usePageState<T, K extends keyof T>(key: K, _nullAsT?: T): [T[K], SetState<T[K]>];
 declare function getUsePageState<T>(): <K extends keyof T>(key: K) => [T[K], SetState<T[K]>];
@@ -38,8 +40,10 @@ declare function withPageStateProvider<T, P extends {} & unknown>(WrappedCompone
 declare function PageStateProvider<T>(props: GetInitStateProps<T>): react.JSX.Element;
 declare function usePageStateController<T>(): IStateController<T>;
 type PageStateControllerProps<T> = {
-    pageState: IStateController<T>;
+    pageStateCtrlr: IStateController<T>;
 };
+declare function withPageStateControllerByCustomFieldName<P extends object, K extends keyof P>(WrappedComponent: ComponentType<P>, propFieldName: K): ComponentType<Omit<P, K>>;
+declare function withPageStateController<P extends PageStateControllerProps<any>>(WrappedComponent: ComponentType<P>): ComponentType<Omit<P, "pageStateCtrlr">>;
 
 declare function useComponentState<T, K extends keyof T>(key: K, _nullAsT?: T): [T[K], SetState<T[K]>];
 declare function getUseComponentState<T>(): <K extends keyof T>(key: K) => [T[K], SetState<T[K]>];
@@ -47,7 +51,9 @@ declare function withComponentStateProvider<T, P extends {} & unknown>(WrappedCo
 declare function ComponentStateProvider<T>(props: GetInitStateProps<T>): react.JSX.Element;
 declare function useComponentStateController<T>(): IStateController<T>;
 type ComponentStateControllerProps<T> = {
-    componentState: IStateController<T>;
+    componentStateCtrlr: IStateController<T>;
 };
+declare function withComponentStateControllerByCustomFieldName<P extends object, K extends keyof P>(WrappedComponent: ComponentType<P>, propFieldName: K): ComponentType<Omit<P, K>>;
+declare function withComponentStateController<P extends ComponentStateControllerProps<any>>(WrappedComponent: ComponentType<P>): ComponentType<Omit<P, "componentStateCtrlr">>;
 
-export { AppStateControllerProps, AppStateProvider, ComponentStateControllerProps, ComponentStateProvider, GetInitStateProps, IStateController, PageStateControllerProps, PageStateProvider, SetState, StateContextType, StateProviderProps, anyClassByUserSpecified, getUseAppState, getUseComponentState, getUsePageState, useAppState, useAppStateController, useComponentState, useComponentStateController, usePageState, usePageStateController, withAppStateProvider, withComponentStateProvider, withPageStateProvider };
+export { AppStateControllerProps, AppStateProvider, ComponentStateControllerProps, ComponentStateProvider, GetInitStateProps, IStateController, PageStateControllerProps, PageStateProvider, SetState, StateContextType, StateProviderProps, anyClassByUserSpecified, getUseAppState, getUseComponentState, getUsePageState, useAppState, useAppStateController, useComponentState, useComponentStateController, usePageState, usePageStateController, withAppStateController, withAppStateControllerByCustomFieldName, withAppStateProvider, withComponentStateController, withComponentStateControllerByCustomFieldName, withComponentStateProvider, withPageStateController, withPageStateControllerByCustomFieldName, withPageStateProvider };
